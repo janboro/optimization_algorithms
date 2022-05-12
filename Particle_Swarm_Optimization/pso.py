@@ -8,6 +8,8 @@ from data_type.best_solution import BestSolution
 variables_number = 3
 upper_bound = np.array([10, 10, 10])
 lower_bound = np.array([-10, -10, -10])
+max_velocity = upper_bound - lower_bound * 0.2
+min_velocity = -max_velocity
 objective_function = sphere
 
 
@@ -54,7 +56,15 @@ for _ in range(max_iterations):
             + c1 * np.random.uniform() * (particle.personal_best.position - particle.position)
             + c2 * np.random.uniform() * (global_best.position - particle.position)
         )
+        # Applying velocity bounds
+        particle.velocity = np.maximum(particle.velocity, min_velocity)
+        particle.velocity = np.minimum(particle.velocity, max_velocity)
+
         particle.position = particle.position + particle.velocity
+        # Applying position bounds
+        particle.position = np.maximum(particle.position, lower_bound)
+        particle.position = np.minimum(particle.position, upper_bound)
+
         particle.cost = objective_function(particle.position)
 
         if particle.cost < particle.personal_best.cost:
