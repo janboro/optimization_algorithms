@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from cost_functions import sphere
+from cost_functions import sphere, constrained_sphere
 from data_type.particle import Particle
 from data_type.best_solution import BestSolution
 
@@ -10,12 +10,12 @@ upper_bound = np.array([10, 10, 10])
 lower_bound = np.array([-10, -10, -10])
 max_velocity = upper_bound - lower_bound * 0.2
 min_velocity = -max_velocity
-objective_function = sphere
+objective_function = constrained_sphere
 
 
 # PSO Parameters
-swarm_size = 30
-max_iterations = 50
+swarm_size = 50
+max_iterations = 100
 initial_weight = 0.9
 final_weight = 0.4
 inertia_dampening = (initial_weight - final_weight) / max_iterations
@@ -32,8 +32,6 @@ swarm = []
 positions = np.random.uniform(low=lower_bound, high=upper_bound, size=(swarm_size, variables_number))
 velocities = np.zeros(shape=(swarm_size, variables_number))
 for position, velocity in zip(positions, velocities):
-    print(position)
-    print(velocity)
     particle_cost = objective_function(position)
     swarm.append(
         Particle(
