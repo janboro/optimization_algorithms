@@ -2,7 +2,7 @@ import numpy as np
 
 
 def sphere(values: np.ndarray):
-    return np.sum(np.power(values, 2))
+    return -np.sum(np.power(values, 2))
 
 
 def sin(values: np.ndarray):

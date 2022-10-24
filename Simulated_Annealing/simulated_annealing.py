@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 test_funcion_no = 1
 
-objective_function = sin
+objective_function = sphere
 
 initial_position = np.array([0.8, -0.5])
 initial_cost = objective_function(initial_position)
@@ -20,7 +20,7 @@ n_variables = len(initial_position)
 # Simulated annealing params
 T = 1
 cooling_rate = 0.99
-max_iter = 500
+max_iter = 5000
 
 
 best_solution = []
@@ -51,7 +51,7 @@ for i in range(max_iter):
 
 print(A)
 
-for val in best_position:
-    print(val)
+# for val in best_position:
+#     print(val)
 plt.plot(best_solution)
 plt.show()
